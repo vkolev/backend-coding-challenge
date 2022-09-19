@@ -8,7 +8,6 @@ The existing code already implements most of the Flask boilerplate for you.
 The main functionality is left for you to implement.
 The goal is to implement an endpoint that searches a user's Gists with a regular expression.
 For example, I'd like to know all Gists for user `justdionysus` that contain the pattern `import requests`.
-There is also a failing test that should pass once you've successfully implemented the search process (and should illustrate the expected format of the response).
 The code in `gistapi.py` contains some comments to help you find your way.
 
 To complete the challenge, you'll have to write some HTTP queries from `Gistapi` to the Github API to pull down each Gist for the target user.
