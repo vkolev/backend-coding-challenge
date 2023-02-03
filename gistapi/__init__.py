@@ -9,8 +9,10 @@ providing a search across all public Gists for a given Github account.
 """
 
 from flask import Flask
+from pydantic import ValidationError
 
 from .api import base_route, gistapi_route
+from .handlers import validation_error_handler
 
 
 def create_app():
@@ -18,7 +20,7 @@ def create_app():
     app = Flask(__name__)
 
     register_routes(app)
-
+    register_handlers(app)
     return app
 
 
@@ -27,3 +29,7 @@ def register_routes(app: Flask):
     app.register_blueprint(base_route)
     app.register_blueprint(gistapi_route)
 
+
+def register_handlers(app: Flask):
+    """Register global handlers"""
+    app.register_error_handler(ValidationError, validation_error_handler)

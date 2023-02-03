@@ -7,7 +7,6 @@ import requests
 
 
 class GistService:
-
     BASE_URL = Template("https://api.github.com/users/$username/gists")
 
     def get_gists_for_user(self, username: str, per_page: int = 100):
@@ -25,9 +24,7 @@ class GistService:
         while True:
             gist_url = self.BASE_URL.safe_substitute(username=username)
             response = requests.get(
-                gist_url,
-                params={"per_page": per_page, "page": page},
-                timeout=10
+                gist_url, params={"per_page": per_page, "page": page}, timeout=10
             )
             if not response.ok or not response.json():
                 break
@@ -68,8 +65,7 @@ class GistService:
         results = []
         with ThreadPoolExecutor(max_workers=4) as executor:
             for result in executor.map(
-                self.find_gist, [(gist, pattern) for gist in gists],
-                timeout=10
+                self.find_gist, [(gist, pattern) for gist in gists], timeout=10
             ):
                 if result:
                     results.append(result)
