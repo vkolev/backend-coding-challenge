@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 
+from gistapi.schemas import SearchRequest, SearchResponse
 from gistapi.service import GistService
 
 api = Blueprint("gistapi", __name__, url_prefix="/api/v1")
@@ -18,16 +19,19 @@ def search():
         indicating any failure conditions.
     """
     post_data = request.get_json()
+
+    search_request = SearchRequest.parse_obj(post_data)
+
     gist_service = GistService()
 
-    result = {}
+    gists = [item for sublist in gist_service.get_gists_for_user(search_request.username) for item in sublist]
+    matches = gist_service.search(gists=gists, pattern=search_request.pattern)
 
-    gists = [item for sublist in gist_service.get_gists_for_user(post_data.get('username')) for item in sublist]
-    matches = gist_service.search(gists=gists, pattern=post_data.get("pattern"))
+    response = SearchResponse(
+        status="success",
+        username=search_request.username,
+        pattern=search_request.pattern,
+        matches=matches
+    )
 
-    result['status'] = 'success'
-    result['username'] = post_data.get("username")
-    result['pattern'] = post_data.get("pattern")
-    result['matches'] = matches
-
-    return jsonify(result)
+    return jsonify(response.dict())
