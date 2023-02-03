@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "backend-coding-challenge"
+version = "0.1.0"
+description = "A simple HTTP API server implemented in Flask for searching user's public Github Gists"
+authors = ["Vladimir Kolev <vladimir.r.kolev@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+flask = "2.2.2"
+requests = "2.28.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
