@@ -33,4 +33,3 @@ def register_routes(app: Flask):
 def register_handlers(app: Flask):
     """Register global handlers"""
     app.register_error_handler(ValidationError, validation_error_handler)
-

@@ -1,3 +1,4 @@
+"""Base API Blueprint"""
 from flask import Blueprint
 
 api = Blueprint("base", __name__)

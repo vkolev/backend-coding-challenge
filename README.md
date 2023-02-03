@@ -32,3 +32,64 @@ Please don't use a github API client (i.e. using a basic HTTP library like reque
     - How can we deploy the application in a cloud environment?
     - How can we be sure the application is alive and works as expected when deployed into a cloud environment?
     - Any other topics you may find interesting and/or important to cover
+
+
+# Documentation
+
+## Setting up development environment
+
+Clone the repository:
+```shell
+git clone git@github.com/vkolev/backend-coding-challenge
+```
+
+Make sure you have poetry installed so running the following command will generate virtual environment for the project
+automatically (providing the flag `--with dev` will ensure that the development dependencies are installed)
+
+```shell
+poetry intall --with dev
+```
+
+## Running Tests
+
+To run the tests:
+
+```shell
+poetry run -v pytest
+```
+
+Or using the Makefile:
+```shell
+make test
+```
+
+## Code Quality
+
+For code quality we use black and pylint 
+- Black - to ensure consistent formatting
+- pylint - to check for linting errors (we run it with --max-line-length=120 since 80 characters is too small for modern monitors)
+- 
+```shell
+poetry run black gitstapi
+poetry run pylint gistapi --max-line-length=120
+```
+
+Or using make:
+
+```shell
+make checks
+```
+
+## Runing the application
+
+### Running the application with Flask Build-in server
+
+```shell
+poetry run python run.py
+```
+
+### Running the application with docker
+
+```shell
+docker-compose up --build
+```

@@ -1,3 +1,4 @@
+"""Gist API Blueprint"""
 from flask import Blueprint, request, jsonify
 
 from gistapi.schemas import SearchRequest, SearchResponse
@@ -24,14 +25,18 @@ def search():
 
     gist_service = GistService()
 
-    gists = [item for sublist in gist_service.get_gists_for_user(search_request.username) for item in sublist]
+    gists = [
+        item
+        for sublist in gist_service.get_gists_for_user(search_request.username)
+        for item in sublist
+    ]
     matches = gist_service.search(gists=gists, pattern=search_request.pattern)
 
     response = SearchResponse(
         status="success",
         username=search_request.username,
         pattern=search_request.pattern,
-        matches=matches
+        matches=matches,
     )
 
     return jsonify(response.dict())
